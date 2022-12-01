@@ -33,26 +33,27 @@ function loadImages(...sources) {
 (async function () {
   resetTime();
   try {
-    const photo1 = fetchImage(700, 800);
-    const photo2 = fetchImage(50, 50);
-    const photo3 = fetchImage(100, 200);
-    // loadImages(photo1, photo2, photo3);
+    const photo1 = await fetchImage(700, 800);
+    const photo2 = await fetchImage(50, 50);
+    const photo3 = await fetchImage(100, 200);
+    loadImages(photo1, photo2, photo3);
   } catch (err) {
     console.log(err);
   }
   elapsedTime('one-by-one');
 })();
 
-// (async function () {
-//   resetTime();
-//   try {
-//     const photo1 = fetchImage(700, 800);
-//     const photo2 = fetchImage(50, 50);
-//     const photo3 = fetchImage(100, 200);
+(async function () {
+  resetTime();
+  try {
+    const photo1 = fetchImage(700, 800);
+    const photo2 = fetchImage(50, 50);
+    const photo3 = fetchImage(100, 200);
 
-//     const allPromises = await Promise.all([photo1, photo2, photo3]);
-//   } catch (err) {
-//     console.log(err);
-//   }
-//   elapsedTime('parallel');
-// })();
+    const allPromises = await Promise.all([photo1, photo2, photo3]);
+    loadImages(...allPromises);
+  } catch (err) {
+    console.log(err);
+  }
+  elapsedTime('parallel');
+})();
